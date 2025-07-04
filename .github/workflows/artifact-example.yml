@@ -1,0 +1,27 @@
+name: Artifact Upload Example
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      OUTPUT_FILE: output.log
+      OUTPUT_NAME: output-log-file
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create log file
+        run: |
+          echo "Hello from Exercise 2!" > $OUTPUT_FILE
+
+      - name: Print log file
+        run: cat $OUTPUT_FILE
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.OUTPUT_NAME }}
+          path: ${{ env.OUTPUT_FILE }}
